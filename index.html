@@ -1,64 +1,356 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f0eb;
-        }
-        h1 {
-            color: #e67e22;
-        }
-        .project {
-            background: white;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .project h2 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
-        .tech {
-            color: #7f8c8d;
-            font-size: 14px;
-        }
-        a {
-            color: #e67e22;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+        /* --- 1. System Variables & Neon Glows --- */
+:root {
+  --bg-dark: #030712;         /* Pitch black space background */
+  --glow-cyan: #06b6d4;       /* Neon Cyan accent */
+  --glow-purple: #a855f7;     /* Neon Purple structural element accent */
+  --text-primary: #f9fafb;    /* Clean white */
+  --text-secondary: #9ca3af;  /* Slate text */
+  --glass-bg: rgba(15, 23, 42, 0.65); /* Translucent container color */
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  /* Digital grid texture background */
+  background-image: 
+    linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  color: var(--text-secondary);
+  font-family: var(--font);
+  line-height: 1.6;
+  padding: 3rem 1.5rem;
+}
+
+/* --- 2. Glassmorphism Dynamic Containers --- */
+#home, #about, #projects, #contact {
+  max-width: 750px;
+  margin: 3rem auto;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px); /* High-tech frosted glass window effect */
+  -webkit-backdrop-filter: blur(16px);
+  padding: 3.5rem;
+  border-radius: 24px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating ambient glow orbs behind the windows */
+#home::before, #about::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 150px;
+  height: 150px;
+  background: var(--glow-cyan);
+  filter: blur(100px);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* --- 3. Neon Navigation Bar --- */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 500px;
+  margin: 0 auto 3rem auto;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.5rem;
+  border-radius: 100px;
+  border: 1px solid var(--glass-border);
+}
+
+.buttons button {
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.buttons button:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* State styling for the selected page button */
+.buttons button.active {
+  background: var(--text-primary);
+  color: var(--bg-dark);
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+}
+
+/* --- 4. Advanced Typography & Headings --- */
+h2 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.05em;
+  margin-bottom: 2rem;
+  background: linear-gradient(to right, var(--text-primary), var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h3, h4, h5 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+#home h5 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.7;
+  max-width: 90%;
+  margin-bottom: 1.2rem;
+}
+
+/* --- 5. Interactive Cyber Buttons --- */
+#home button {
+  background: transparent;
+  color: var(--glow-cyan);
+  border: 1px solid var(--glow-cyan);
+  font-weight: 600;
+  padding: 0.9rem 2.2rem;
+  border-radius: 12px;
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+}
+
+#home button:hover {
+  background: var(--glow-cyan);
+  color: var(--bg-dark);
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+  transform: translateY(-2px);
+}
+
+/* --- 6. The Project Cards (Glow on Hover) --- */
+#project1, #project2, #project3 {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  padding: 2rem;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+#project1:hover, #project2:hover, #project3:hover {
+  border-color: var(--glow-cyan);
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.08);
+  transform: scale(1.01);
+}
+
+#project1 h4, #project2 h4, #project3 h4 {
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --- 7. Modern Minimalist Matrix Tables --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2.5rem;
+}
+
+tr:hover td {
+  color: var(--glow-cyan);
+}
+
+th, td {
+  padding: 1.2rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: color 0.2s ease;
+}
+
+th {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: 25%;
+}
+
+td {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* --- 8. Cyber Links & Contact Badges --- */
+a {
+  color: var(--glow-cyan);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: var(--text-primary);
+  text-shadow: 0 0 8px var(--glow-cyan);
+}
+
+#contact ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#contact li {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  font-family: monospace;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  word-break: break-all;
+}
+
+#contact b {
+  color: var(--glow-purple);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
     </style>
+
 </head>
 <body>
-    <h1>My Projects</h1>
+    <div class="buttons">
+        <button onclick="switch_to('home')">Home</button>
+        <button onclick="switch_to('about')">About</button>
+        <button onclick="switch_to('projects')">Projects</button>
+        <button onclick="switch_to('contact')">Contact</button>
+
+    </div>
+    <div id="home">
+        <h2>Welcome</h2>
+        <h5>Hi, I'm Djamel.</h5>
+        <h5>I build complete, scalable web & desktop applications from scratch.</h5>
+
+        <h5>I am a Python Developer specializing in Python backends and dynamic user interfaces.</h5>
+        <button onclick="switch_to('projects')">View my work</button>
+    </div>
+    <div id="about">
+        <h2>About</h2>
+        <p>
+            "I bridge the gap between elegant frontend design and robust backend logic. Using Python frameworks like Django and Flask, I build secure, high-performance APIs and database architectures. On the frontend, I use HTML, CSS, and JavaScript to turn those systems into smooth, responsive user experiences.
+        </p>
+        <table>
+            <tr>
+                <th>Backend</th>
+                <td>Django</td>
+                <td>Flask</td>
+                <td>Python</td>
+            </tr>
+            <tr>
+                <th>Frontend</th>
+                <td>HTML5</td>
+                <td>CSS3</td>
+                <td>JavaScript (ES6+)</td>
+            </tr>
+            <tr>
+                <th>Databases</th>
+                <td>SQLite</td>
+                <td>MySQL</td>
+                <td>PostgreSQL</td>
+            </tr>
+            <tr>
+                <th>Tools</th>
+                <hd>Git & Github</hd>
+                <td>REST APIs</td>
+                <td>Deployment (Render/Heroku)</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="projects">
+        <h2>Projects</h2>
+        <div id="project1">
+            <h4>The Bonfire(text chat group)</h4>
+            <p>A real-time anonymous chat application built with Flask and SQLite. Users can register, login, and post messages that appear instantly for everyone.</p>
+            <ul>
+                <li>Tech stack: Flask, Python, JavaScript, HTML/CSS, SQLite3</li>
+                <li><b>Source Code:</b> <a href="https://github.com/gg88oo/The-Bonfire-text-chat-group-">Github</a></li>
+            </ul>
+        </div>
+        <div id="project2">
+            <h4>Weather Dashboard</h4>
+            <p>A beautiful desktop weather application built with Python Tkinter. Get real-time weather information, view forecasts, and save your favorite locations.</p>
+            <ul>
+                <li><b>Tech Stack: </b> Tkinter, Python</li>
+                <li><b>Source code:</b> <a href="https://github.com/gg88oo/Weather-Dashboard">Github</a></li>
+            </ul>
+        </div>
+        <div id="project3">
+          <h4>My Diary App</h4>
+          <p>A beautiful desktop diary application with a calendar interface. Write daily entries, navigate between months, and save your thoughts - all in a clean, premium-looking app.</p>
+          <ul>
+            <li><b>Tech Stack: </b> Pyqt6, Python</li>
+            <li><b>Source Code :</b><a href="https://github.com/gg88oo/Diary-App">Github</a></li>
+          </ul>
+
+        </div>
+    </div>
+
+    <div id="contact">
+        <h2>Let's Build Something Together</h2>
+        <h3>I am currently open to full-time roles and freelance opportunities.</h3>
+        <ul>
+            <li><b>LinkedIn :</b> https://www.linkedin.com/in/djamel-rezaoui-9085443b1/</li>
+            <li><b>Email :</b> jam40100@proton.me</li>
+            <li><b>Github :</b> https://github.com/gg88oo</li>
+        </ul>
+    </div>
+
+    <script>
+        function switch_to(id) {
+
+            document.getElementById("home").style.display = "none"
+            document.getElementById("about").style.display = "none"
+            document.getElementById("projects").style.display = "none"
+            document.getElementById("contact").style.display = "none"
+
+            document.getElementById(id).style.display = "block"
+
+
+
+        }
+
+        switch_to('home')
+    </script>
     
-    <div class="project">
-        <h2>Diary App</h2>
-        <p>A calendar-based diary application built with PyQt6. Save daily entries, navigate months/years, and persistent storage.</p>
-        <div class="tech">Python, PyQt6, File I/O</div>
-        <a href="#">GitHub Repo</a>
-    </div>
-
-    <div class="project">
-        <h2>Search Engine</h2>
-        <p>A simple search engine implementation.</p>
-        <div class="tech">Python</div>
-        <a href="#">GitHub Repo</a>
-    </div>
-
-    <div class="project">
-        <h2>Store App</h2>
-        <p>E-commerce store built with Flask and PyQt.</p>
-        <div class="tech">Python, Flask, PyQt6</div>
-        <a href="#">GitHub Repo</a>
-    </div>
 </body>
 </html>
